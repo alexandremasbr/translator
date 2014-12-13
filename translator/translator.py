@@ -36,6 +36,7 @@ class Translator:
         self.orig_str = re.compile(r"[.!?;]\s+").split(self.orig_str)
         self.orig_str = [x.strip() for x in self.orig_str]
         self.orig_str = [x for x in self.orig_str if x]
+        self.n_sentences = len(self.orig_str)
 
     @property
     def from_lang(self):
@@ -56,12 +57,13 @@ class Translator:
             raise Exception("%s not valid language option" % new_lang)
         self._to_lang = new_lang
 
-    def translate(self):
+    def translate(self, verbose=False):
         self.trans_str = []
-        for sentence in self.orig_str:
+        for i, sentence in enumerate(self.orig_str):
+            if verbose:
+                print("\rTranslating %d/%d sentences..." % (i+1, self.n_sentences), end="")
             query = urllib.parse.quote(sentence)
             link = self.linkroot + query
-            # print(link)
             try:
                 request = urllib.request.Request(link, headers=self.agent)
                 webpage = urllib.request.urlopen(request).read()
@@ -71,6 +73,9 @@ class Translator:
                 res = "Failed to fetch translation from google."
 
             self.trans_str.append(res)
+
+        if verbose:
+            print()
 
     def contrast(self):
         return zip(self.orig_str, self.trans_str)

@@ -20,7 +20,7 @@ def main():
             input_string = fh.read()
 
     trans = Translator(args.fromlang, args.tolang, input_string)
-    trans.translate()
+    trans.translate(verbose=True)
     output_string = trans.prettify()
 
     if not args.outputfile:
