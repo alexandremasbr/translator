@@ -1,0 +1,11 @@
+README
+setup.py
+translator/__init__.py
+translator/shellscript.py
+translator/translator.py
+translator.egg-info/PKG-INFO
+translator.egg-info/SOURCES.txt
+translator.egg-info/dependency_links.txt
+translator.egg-info/entry_points.txt
+translator.egg-info/requires.txt
+translator.egg-info/top_level.txt
